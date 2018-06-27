@@ -1,0 +1,2 @@
+* Stallminator
+  A mastodon bot that mirrors the RSS feed of Richard Stallman
