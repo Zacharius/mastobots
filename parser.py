@@ -4,7 +4,7 @@ import feedparser
 #feedparser docs: https://pythonhosted.org/feedparser/
 
 feedURL = "https://stallman.org/rss/rss.xml"
-latestTitleFile = "lastTitle.txt"
+latestTitleFile = "/home/z/prj/Stallminator/lastTitle.txt"
 
 def getNewPosts():
 
