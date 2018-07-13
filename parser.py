@@ -17,13 +17,13 @@ class Parser:
         for feedURL in self.feedURLList:
             feed = feedparser.parse(feedURL)
             latestTitleFile = generateFileName(feed)
+            newestTitle = feed.entries[0].title
 
             try:
                 latestTitle = findLatestTitle(latestTitleFile)
             except:
-                latestTitle = ""
+                latestTitle = newestTitle
 
-            newestTitle = feed.entries[0].title
 
             for entry in feed.entries:
                 if latestTitle == entry.title:

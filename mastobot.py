@@ -38,7 +38,21 @@ def rbu_rss():
              'http://feeds.akkartik.name/kartiks-scrapbook': '@akkartik@mastodon.social',
              'https://swellandcut.com/feed/': '@msweet',
              'https://www.spectology.com/feed.xml' : '@strangeattractor',
-             'https://clutchofthedeadhand.com/rss/': '@johnhenry' }
+             'https://clutchofthedeadhand.com/rss/': '@johnhenry',
+             'http://meltingasphalt.com/feed/' : "",
+             'https://subpixel.space/feed.xml' : '@telos',
+             'https://kneelingbus.net/feed/' : "",
+             'https://omniorthogonal.blogspot.com/feeds/posts/default' : "",
+             'http://thesublemon.tumblr.com/rss' : " ",
+             'https://us1.campaign-archive.com/feed?u=78cbbb7f2882629a5157fa593&id=6b80b6e8da'
+             : "@vgr",
+             'http://zenpundit.com/?feed=rss2' : "",
+             'https://srconstantin.wordpress.com/feed/' : "" ,
+             'https://putanumonit.com/feed/' : '',
+             'https://feeds.feedburner.com/Growwiser' : '',
+             'https://josephckelly.com/feed/' : '',
+             'https://gravityandlevity.wordpress.com/feed/' : '',
+             'https://www.nousmachina.net/rss/' : '@hewhocutsdown' }
 
 
     rbu_rss = Mastobot('zach@refactorcamp.org',
@@ -48,7 +62,6 @@ def rbu_rss():
                        'https://refactorcamp.org').login()
 
     for feed in blogs:
-        print(feed)
         parser = Parser([feed])
         rssEntries = parser.getNewPosts()
 
