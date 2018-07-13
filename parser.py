@@ -3,32 +3,37 @@
 import feedparser
 #feedparser docs: https://pythonhosted.org/feedparser/
 
-feedURL = "https://stallman.org/rss/rss.xml"
-latestTitleFile = "/home/z/prj/Stallminator/lastTitle.txt"
+LATEST_TITLE_DIR= "/home/z/prj/mastobots/rssTitles/"
 
-def getNewPosts():
+class Parser:
 
-
-
-    feed = feedparser.parse(feedURL)
-    try:
-        latestTitle = findLatestTitle(latestTitleFile)
-    except:
-        latestTitle = ""
-
-    newestTitle = feed.entries[0].title
-    newEntries = []
-    
-    for entry in feed.entries:
-        if latestTitle == entry.title:
-            break
-        newEntries.append(entry)
+    def __init__(self, feedURLList):
+        self.feedURLList = feedURLList
         
+    def getNewPosts(self):
 
-    writeLatestFile(latestTitleFile, newestTitle)
+        newEntries = []
+        
+        for feedURL in self.feedURLList:
+            feed = feedparser.parse(feedURL)
+            latestTitleFile = generateFileName(feed)
 
-    return newEntries
+            try:
+                latestTitle = findLatestTitle(latestTitleFile)
+            except:
+                latestTitle = ""
 
+            newestTitle = feed.entries[0].title
+
+            for entry in feed.entries:
+                if latestTitle == entry.title:
+                    break
+                newEntries.append(entry)
+
+
+            writeLatestTitle(latestTitleFile, newestTitle)
+
+        return newEntries
 
 
 
@@ -40,12 +45,24 @@ def findLatestTitle(fileName):
     return title
 
 #write latest title to file
-def writeLatestFile(fileName, title):
+def writeLatestTitle(fileName, title):
     with open(fileName, "w") as file:
         file.write(title)
 
-if __name__ == '__main__':
-    getNewPosts()
+def generateFileName(feed):
+    base = feed.feed.title
+    base = base.replace(" ","_")
+    fileName = LATEST_TITLE_DIR + base + '.txt'
 
+    return fileName
+
+if __name__ == '__main__':
+    feedURLList = [ "https://www.ribbonfarm.com/feed/" ]
+    parser = Parser(feedURLList)
+    entries = parser.getNewPosts()
+
+    for entry in entries:
+        print(entry.title)
+    
 
     

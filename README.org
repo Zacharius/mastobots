@@ -1,2 +1,8 @@
-* Stallminator
-  A mastodon bot that mirrors the RSS feed of Richard Stallman
+* Mastobots
+  Various Bots For Mastodon
+** Stallminator
+   A mastodon bot that mirrors the RSS feed of Richard Stallman
+   
+   https://mastodon.social/@stallminator
+** RBU RSS Bot
+   Posts the rss feed of websites of members of refactorcamp.org
