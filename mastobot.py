@@ -37,7 +37,7 @@ def rbu_rss():
              'https://meaningness.com/rss.xml': '@meaningness',
              'http://feeds.akkartik.name/kartiks-scrapbook': '@akkartik@mastodon.social',
              'https://swellandcut.com/feed/': '@msweet',
-             'https://www.spectology.com/feed.xml' : '@strangeattractor',
+             'https://www.spectology.com/feed.xml' : '@adrianryan',
              'https://clutchofthedeadhand.com/rss/': '@johnhenry',
              'http://meltingasphalt.com/feed/' : "",
              'https://subpixel.space/feed.xml' : '@telos',
@@ -52,7 +52,11 @@ def rbu_rss():
              'https://feeds.feedburner.com/Growwiser' : '',
              'https://josephckelly.com/feed/' : '',
              'https://gravityandlevity.wordpress.com/feed/' : '',
-             'https://www.nousmachina.net/rss/' : '@hewhocutsdown' }
+             'https://www.nousmachina.net/rss/' : '@hewhocutsdown',
+             'https://www.howell.io/rss.xml' : '@dehowell' ,
+             'https://scottwernerd.com/feed/' : '@scottwerner',
+             'http://secondforge.com/atom.xml' : '@jamescgibson',
+             'https://ariel-greenwood-e07u.squarespace.com/new-blog?format=rss': ''}
 
 
     rbu_rss = Mastobot('zach@refactorcamp.org',
