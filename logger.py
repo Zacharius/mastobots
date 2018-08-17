@@ -28,7 +28,7 @@ class Logger:
         self.logfile = str(logDir +  logFile)
 
         
-    def log(self, text, title, author, link):
+    def logBlog(self, text, title, author, link):
 
         with open(self.logfile, "a") as log:
 
@@ -39,6 +39,16 @@ class Logger:
             log.write(text + "\n")
             log.write("--------------------\n")
 
+
+    def logToot(self, text, author):
+
+        with open(self.logfile, "a") as log:
+
+            log.write(text + "\n")
+            log.write(author + "\n")
+            log.write("---------------------\n")
+
+            
     def archive(self):
         datepostfix = datetime.date.today().strftime("%y.%W")
 

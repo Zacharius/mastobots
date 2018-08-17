@@ -6,7 +6,7 @@ import html2text
 def formatStatus(rssEntry, extra):
     status = rssEntry.summary
     status = htmlToMastodonFormat(status)
-    status = removeInternalNewlines(status)
+#    status = removeInternalNewlines(status)
     #status = stripNaturalLink(status)
     status = concatAndInsertLink(status, rssEntry, extra)
     return status
