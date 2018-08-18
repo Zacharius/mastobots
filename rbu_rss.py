@@ -49,15 +49,27 @@ class RBU_RSS(Mastodon):
     logger = Logger(logDir, logfile)
 
     def __init__(self):
-        super().__init__(
-            access_token = self.SECRET_DIR + self.accessTokenFile,
-            api_base_url = self.instanceURL)
+        #super().__init__(
+        #    access_token = self.SECRET_DIR + self.accessTokenFile,
+        #    api_base_url = self.instanceURL)
+
+        self.__log_in_new_client()
         
 
     def run(self):
         self.__logAndPostFeeds()
         self.__logAndBoostHashtagSinceLastTime('heyfeedfox')
 
+    def __log_in_new_client(self):
+        super().__init__(
+            client_id = self.SECRET_DIR + self.clientIDFile,
+            api_base_url = self.instanceURL)
+
+        self.log_in(
+            self.email,
+            self.password,
+            to_file = self.SECRET_DIR + self.accessTokenFile)
+        
     def __logAndPostFeeds(self):
         
         for feed in self.blogs:
