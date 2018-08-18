@@ -56,7 +56,7 @@ class RBU_RSS(Mastodon):
 
     def run(self):
         self.__logAndPostFeeds()
-        self.__logAndBoostHashtag('heyfeedfox')
+        self.__logAndBoostHashtagSinceLastTime('heyfeedfox')
 
     def __logAndPostFeeds(self):
         
@@ -76,12 +76,36 @@ class RBU_RSS(Mastodon):
             spoiler_text=entry.title,
             visibility="public")
 
-    def __logAndBoostHashtag(self, hashtag):
-        tagged_posts = self.timeline_hashtag(hashtag, local='true')
+    def __logAndBoostHashtagSinceLastTime(self, hashtag):
+        latestID = self.__findLastRecordedHashtagID(hashtag)
+        
+        tagged_posts = self.timeline_hashtag(hashtag,
+                                             local='true',
+                                             since_id = latestID)
 
         for post in tagged_posts:
             self.status_reblog(post.id)
             self.logger.logToot(post.content, post.account.acct)
+
+        if len(tagged_posts) > 0:
+            lastID = tagged_posts[0].id
+            self.__saveLastRecordedHashtagID(hashtag, lastID)
+
+    def __findLastRecordedHashtagID(self, hashtag):
+
+        try:
+            with open(hashtag) as file:
+                id = file.read()
+        except:
+            id = None
+
+        return id
+
+    def __saveLastRecordedHashtagID(self, hashtag, id):
+
+        with open(hashtag, "w") as file:
+            file.write(str(id))
+        
 
 if __name__ == '__main__':
     rbu_rss = RBU_RSS()
