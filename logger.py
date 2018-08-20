@@ -6,9 +6,10 @@ import re
 import time
 import subprocess
 import datetime
+from util import getAbsolutePath
 
 def main():
-    logDir = "/home/zacharius/Project/Mastobots/log/"
+    logDir = getAbsolutePath(__file__, 'log/')
     logfile = "out.txt"
     logger = Logger(logDir, logfile)
 

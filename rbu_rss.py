@@ -5,9 +5,10 @@ import os
 from logger import Logger
 from parser import Parser
 from format import formatStatus
+from util import getAbsolutePath
 
 class RBU_RSS(Mastodon):
-    SECRET_DIR = '/home/z/prj/mastobots/secrets/'
+    SECRET_DIR = getAbsolutePath(__file__, 'secrets/')
     email = 'zach@refactorcamp.org'
     password = os.environ['STALLMINATOR_PASSWORD']
     clientIDFile = 'rbu_clientcred.secret'

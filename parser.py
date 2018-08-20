@@ -1,9 +1,11 @@
 #!/usr/bin/python3
 
 import feedparser
+import os
+from util import getAbsolutePath
 #feedparser docs: https://pythonhosted.org/feedparser/
 
-LATEST_TITLE_DIR= "/home/z/prj/mastobots/rssTitles/"
+LATEST_TITLE_DIR= getAbsolutePath(__file__, 'rssTitles/')
 
 class Parser:
 
@@ -16,8 +18,11 @@ class Parser:
         
         for feedURL in self.feedURLList:
             feed = feedparser.parse(feedURL)
-            latestTitleFile = generateFileName(feed)
-            newestTitle = feed.entries[0].title
+            latestTitleFile = generateFileName(feedURL)
+            if len(feed.entries) > 0:
+                newestTitle = feed.entries[0].title
+            else:
+                continue
 
             try:
                 latestTitle = findLatestTitle(latestTitleFile)
@@ -49,9 +54,10 @@ def writeLatestTitle(fileName, title):
     with open(fileName, "w") as file:
         file.write(title)
 
-def generateFileName(feed):
-    base = feed.feed.title
-    base = base.replace(" ","_")
+def generateFileName(url):
+    base = ''.join(e for e in url if e.isalnum())
+    #base = feed.feed.title
+    #base = base.replace(" ","_")
     fileName = LATEST_TITLE_DIR + base + '.txt'
 
     return fileName
