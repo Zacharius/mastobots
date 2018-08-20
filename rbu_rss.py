@@ -45,7 +45,7 @@ class RBU_RSS(Mastodon):
              'https://goingferalco.wordpress.com/feed/' : '@james'}
 
 
-    logDir = '/home/z/prj/mastobots/log/'
+    logDir = getAbsolutePath(__file__, 'log/')
     logfile = 'out.txt'
     logger = Logger(logDir, logfile)
 
@@ -106,8 +106,10 @@ class RBU_RSS(Mastodon):
 
     def __findLastRecordedHashtagID(self, hashtag):
 
+        hashfile = getAbsolutePath(__file__, hashtag)
+        
         try:
-            with open(hashtag) as file:
+            with open(hashfile) as file:
                 id = file.read()
         except:
             id = None
@@ -116,7 +118,9 @@ class RBU_RSS(Mastodon):
 
     def __saveLastRecordedHashtagID(self, hashtag, id):
 
-        with open(hashtag, "w") as file:
+        hashfile = getAbsolutePath(__file__, hashtag)
+
+        with open(hashfile, "w") as file:
             file.write(str(id))
         
 
