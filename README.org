@@ -2,7 +2,7 @@
   Mastodon bots and classes to help me make said bots. 
   Currently only one bot in production but thats likely to change eventually.
 
-  + External Libraries Used
+  External Libraries Used
     - Mastodon.py
      https://mastodonpy.readthedocs.io/en/stable
     - Feedparser
