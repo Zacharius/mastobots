@@ -42,6 +42,8 @@ class RBU_RSS(Mastodon):
              'https://ariel-greenwood-e07u.squarespace.com/new-blog?format=rss':
              'Ariel Greenwood',
              'http://www.thehidinghand.com/feed' : '@stefanozorzi',
+             'http://msls.net/feed/' : '@bkam',
+             'https://medium.com/feed/@j_camachor/' : '@jcamachor@mastodon.social',
              'https://goingferalco.wordpress.com/feed/' : '@james'}
 
 
