@@ -17,8 +17,8 @@ class RBU_RSS(Mastodon):
 
 
     blogs = {'https://www.ribbonfarm.com/feed/': '@vgr',
-             'https://meaningness.com/rss.xml': '@meaningness',
              'http://feeds.akkartik.name/kartiks-scrapbook': '@akkartik@mastodon.social',
+             'https://meaningness.com/rss.xml': '@meaningness',
              'https://swellandcut.com/feed/': '@msweet',
              'https://www.spectology.com/feed.xml' : '@adrianryan',
              'https://clutchofthedeadhand.com/rss/': '@johnhenry',
@@ -44,6 +44,7 @@ class RBU_RSS(Mastodon):
              'http://www.thehidinghand.com/feed' : '@stefanozorzi',
              'http://msls.net/feed/' : '@bkam',
              'https://medium.com/feed/@j_camachor/' : '@jcamachor@mastodon.social',
+             'https://www.digital-orrery.com/index.xml' : '@neocopinus',
              'https://goingferalco.wordpress.com/feed/' : '@james'}
 
 
