@@ -25,14 +25,14 @@ class RBU_RSS(Mastodon):
              'http://meltingasphalt.com/feed/' : "Kevin Simler",
              'https://subpixel.space/feed.xml' : '@telos',
              'https://kneelingbus.net/feed/' : "Drew Austin",
-             'https://omniorthogonal.blogspot.com/feeds/posts/default' : "",
-             'http://thesublemon.tumblr.com/rss' : "",
+             'https://omniorthogonal.blogspot.com/feeds/posts/default' : "omniorthogonal",
+             'http://thesublemon.tumblr.com/rss' : "thesublemon",
              'https://us1.campaign-archive.com/feed?u=78cbbb7f2882629a5157fa593&id=6b80b6e8da'
              : "@vgr",
-             'http://zenpundit.com/?feed=rss2' : "",
-             'https://srconstantin.wordpress.com/feed/' : "" ,
-             'https://putanumonit.com/feed/' : '',
-             'https://feeds.feedburner.com/Growwiser' : '',
+             'http://zenpundit.com/?feed=rss2' : "zenpundit",
+             'https://srconstantin.wordpress.com/feed/' : "srconstantin" ,
+             'https://putanumonit.com/feed/' : 'putanumonit',
+             'https://feeds.feedburner.com/Growwiser' : 'grow wiser',
              'https://josephckelly.com/feed/' : 'Joseph Kelly',
              'https://gravityandlevity.wordpress.com/feed/' : 'Brian Skinner',
              'https://www.nousmachina.net/rss/' : '@hewhocutsdown',
@@ -50,13 +50,13 @@ class RBU_RSS(Mastodon):
 
     logDir = getAbsolutePath(__file__, 'log/')
     logfile = 'out.txt'
-    logger = Logger(logDir, logfile)
 
-    def __init__(self):
+    def __init__(self, logfile=self.logfile):
         #super().__init__(
         #    access_token = self.SECRET_DIR + self.accessTokenFile,
         #    api_base_url = self.instanceURL)
 
+        logger = Logger(logDir, logfile)
         self.__log_in_new_client()
         
 

@@ -40,7 +40,22 @@ def htmlToMastodonFormat(status):
     status = html2text.html2text(status)
     return status
 
-#def stripNaturalLink(status):
-#    status = re.sub(r'\.\.\..*$', '', status)
-#    return status
+    
+def extractExternalLinks(text):
+    linkRegEx = r'href="https?://(.*?)"'
+    externalLinkRegEx = r'refactorcamp.org'
+
+    links = re.findall(linkRegEx, text)
+    externalLinks = []
+
+    for link in links:
+        if not re.match(externalLinkRegEx, link):
+            externalLinks.append(link)
+
+    return externalLinks
+
+def stripHtml(text):
+    stripHtmlRegEx = r'<.*?>'
+    text = re.sub(stripHtmlRegEx, '', text)
+    return text
 
