@@ -1,11 +1,23 @@
 * Mastobots
-  Various Bots For Mastodon
+  Mastodon bots and classes to help me make said bots. 
+  Currently only one bot in production but thats likely to change eventually.
 
-** Stallminator
-   A mastodon bot that mirrors the RSS feed of Richard Stallman
-   
-   https://mastodon.social/@stallminator
+  External Libraries Used:
+  
+   - Mastodon.py
+     https://mastodonpy.readthedocs.io/en/stable
+   - Feedparser
+      https://pythonhosted.org/feedparser
+   - html2text
+      https://pypi.org/project/html2text
 
 ** RBU RSS Bot
+   Ribbonfarm Blogamatic Universe RSS Bot
+   https://refactorcamp.org/@rbu_rss_bot
 
-   Posts the rss feed of websites of members of refactorcamp.org
+   Performs various automations for the mastodon community,
+   https://refactorcamp.org.
+
+   - Posts the RSS feed of community members' websites
+   - Boosts posts with the hashtag #heyfeedfox and appends them to a log for
+     possible inclusion in a weekly newsletter/post on the website https://ribbonfarm.com
