@@ -7,7 +7,7 @@ import time
 import subprocess
 import datetime
 from util import getAbsolutePath
-from format import formatBlogLog, formatLinkedTootLog, formatLocalTootLog
+from format import formatBlogLog, formatLinkedTootLog, formatLocalTootLog, extractExternalLinks
 
 def main():
     logDir = getAbsolutePath(__file__, 'log/')
@@ -45,7 +45,7 @@ class Logger:
         if not externalLinks:
             self.__logLocalToot(text, author)
         else:
-            self.__logLinkedToot(text, author, externalLinks)
+            self.__logLinkedToot(text, author)
 
     def __logLinkedToot(self, text, author):
         linkedTootString = formatLinkedTootLog(text, author)

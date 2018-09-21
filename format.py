@@ -54,11 +54,12 @@ def extractText(html):
     extractTextRegEx = r'<p>(.*?)<a'
     extractTagsRegEx = r'<.+?><.+?>'
 
-    text = match(extractTextRegEx, html).group(1)
-    if not text:
+    textMatch = match(extractTextRegEx, html)
+    if textMatch:
+        text = textMatch.group(1)
+        text = sub(extractTagsRegEx, ' ', text)
+    else:
         text = ''
-
-    text = sub(extractTagsRegEx, ' ', text)
 
     return text
 
