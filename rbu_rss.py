@@ -51,12 +51,12 @@ class RBU_RSS(Mastodon):
     logDir = getAbsolutePath(__file__, 'log/')
     logfile = 'out.txt'
 
-    def __init__(self, logfile=self.logfile):
+    def __init__(self):
         #super().__init__(
         #    access_token = self.SECRET_DIR + self.accessTokenFile,
         #    api_base_url = self.instanceURL)
 
-        logger = Logger(logDir, logfile)
+        logger = Logger(self.logDir, self.logfile)
         self.__log_in_new_client()
         
 
@@ -82,7 +82,7 @@ class RBU_RSS(Mastodon):
 
             for entry in rssEntries:
                 self.__postRSSEntry(entry, self.blogs[feed])
-                self.logger.logBlog('', entry.title, self.blogs[feed], entry.link)
+                self.logger.logBlog(entry.title, self.blogs[feed], entry.link)
 
 
     def __postRSSEntry(self, entry, author):
@@ -98,7 +98,6 @@ class RBU_RSS(Mastodon):
         tagged_posts = self.timeline_hashtag(hashtag,
                                              local='true',
                                              since_id = latestID)
-
         for post in tagged_posts:
             self.status_reblog(post.id)
             self.logger.logToot(post.content, post.account.acct)

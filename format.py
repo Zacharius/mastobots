@@ -1,13 +1,12 @@
 #!/usr/bin/python3
 
-import re
+from re import findall, match, finditer, sub
+import logging
 import html2text
 
 def formatStatus(rssEntry, extra):
     status = rssEntry.summary
     status = htmlToMastodonFormat(status)
-#    status = removeInternalNewlines(status)
-    #status = stripNaturalLink(status)
     status = concatAndInsertLink(status, rssEntry, extra)
     return status
     
@@ -32,30 +31,64 @@ def concatAndInsertLink(status, rssEntry, extra):
     status += extra
     return status
         
-def removeInternalNewlines(status):
-    status = status.replace("\n", " ")
-    return status
-
 def htmlToMastodonFormat(status):
     status = html2text.html2text(status)
     return status
 
-    
 def extractExternalLinks(text):
     linkRegEx = r'href="https?://(.*?)"'
     externalLinkRegEx = r'refactorcamp.org'
 
-    links = re.findall(linkRegEx, text)
+    links = findall(linkRegEx, text)
     externalLinks = []
 
     for link in links:
-        if not re.match(externalLinkRegEx, link):
+        if not match(externalLinkRegEx, link):
             externalLinks.append(link)
 
     return externalLinks
 
-def stripHtml(text):
-    stripHtmlRegEx = r'<.*?>'
-    text = re.sub(stripHtmlRegEx, '', text)
+#grabs all text after the first <p> and before the first <a tag
+def extractText(html):
+#    logging.basicConfig(level=logging.DEBUG)
+    extractTextRegEx = r'<p>(.*?)<a'
+    extractTagsRegEx = r'<.+?><.+?>'
+
+    text = match(extractTextRegEx, html).group(1)
+    if not text:
+        text = ''
+
+    text = sub(extractTagsRegEx, ' ', text)
+
     return text
 
+
+def formatBlogLog(title, author, link):
+    blogLog = (title +
+    ' by <a href="https://refactorcamp.org/' +
+    author +
+    '">' +
+    author +
+    '</a>. <a href="' +
+    link +
+    '">Link</a>')
+
+    return blogLog
+
+def formatLinkedTootLog(text, author):
+    externalLinks = extractExternalLinks(text)
+    title = extractText(text)
+    
+    formatString = title + '.'
+    for link in externalLinks:
+        formatString += '<a href="http://' + link + '">Link</a>. '
+    formatString += ('ht <a href="https://refactorcamp.org/@' +
+                      author + '">@' + author + '</a>')
+    return formatString
+
+def formatLocalTootLog(text, author):
+    title = extractText(text)
+
+    formatString = (title + ' -- <a href="https://refactorcamp.org/@' +
+                      author + '">@' + author + '</a>')
+    return formatString

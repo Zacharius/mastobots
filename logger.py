@@ -7,7 +7,7 @@ import time
 import subprocess
 import datetime
 from util import getAbsolutePath
-from format import extractExternalLinks, stripHtml
+from format import formatBlogLog, formatLinkedTootLog, formatLocalTootLog
 
 def main():
     logDir = getAbsolutePath(__file__, 'log/')
@@ -22,7 +22,6 @@ def main():
     class="ellipsis">hbr.org/2018/09/design-thinkin</span><span
     class="invisible">g-is-fundamentally-conservative-and-preserves-the-status-quo</span></a></p>
     vgr '''
-
     title = "poetry"
     link = "zfadd.is"
     author = "@zacharius"
@@ -36,15 +35,9 @@ class Logger:
 
         
     def logBlog(self, title, author, link):
+        logBlogString = formatBlogLog(title, author, link)
         with open(self.logfile, "a") as log:
-            log.write(title +
-                      ' by <a href="https://refactorcamp.org' +
-                      author +
-                      '">' +
-                      author +
-                      '.</a> <a href="' +
-                      link +
-                      '">Link</a>')
+            log.write(logBlogString)
             log.write()#newline
                       
 
@@ -55,22 +48,15 @@ class Logger:
         else:
             self.__logLinkedToot(text, author, externalLinks)
 
-    def __logLinkedToot(self, text, author, externalLinks):
-        text = stripHtml(text)
-
+    def __logLinkedToot(self, text, author):
+        linkedTootString = formatLinkedTootLog(text, author)
         with open(self.logfile, "a") as log:
-            log.write(text + '.')
-            for link in externalLinks:
-                log.write('<a href="' + link + '">Link.</a>')
-            log.write('ht <a href="https://refactorcamp.org/@' +
-                      author + '">@' + author + '</a>')
+            log.write(linkedTootString)
                       
     def __logLocalToot(self, text, author):
-        text = stripHtml(text)
-
+        localTootString = formatLocalTootLog(text, author)
         with open(self.logfile, 'a') as log:
-            log.write(text + ' -- <a href="https://refactorcamp.org/@' +
-                      author + '">@' + author + '</a>')
+            log.write(localTootString)
 
     def archive(self):
         datepostfix = datetime.date.today().strftime("%y.%W")
