@@ -100,7 +100,7 @@ class RBU_RSS(Mastodon):
                                              since_id = latestID)
         for post in tagged_posts:
             if post.in_reply_to_id:
-                post = self._getParentPost(post)
+                post = self.__getParentPost(post)
             self.status_reblog(post.id)
             self.logger.logToot(post.content, post.account.acct)
 
@@ -109,7 +109,7 @@ class RBU_RSS(Mastodon):
             self.__saveLastRecordedHashtagID(hashtag, lastID)
 
     def __getParentPost(post):
-        parentID = toot.in_reply_to_id
+        parentID = post.in_reply_to_id
         parentPost = self.status(parentID)
         return parentPost
 
