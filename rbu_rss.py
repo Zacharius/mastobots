@@ -99,12 +99,19 @@ class RBU_RSS(Mastodon):
                                              local='true',
                                              since_id = latestID)
         for post in tagged_posts:
+            if post.in_reply_to_id:
+                post = _self._getParentPost(post)
             self.status_reblog(post.id)
             self.logger.logToot(post.content, post.account.acct)
 
         if len(tagged_posts) > 0:
             lastID = tagged_posts[0].id
             self.__saveLastRecordedHashtagID(hashtag, lastID)
+
+        def __getParentPost(post):
+            parentID = toot.in_reply_to_id
+            parentPost = self.status(parentID)
+            return parentPost
 
     def __findLastRecordedHashtagID(self, hashtag):
 
