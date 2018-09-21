@@ -56,7 +56,7 @@ class RBU_RSS(Mastodon):
         #    access_token = self.SECRET_DIR + self.accessTokenFile,
         #    api_base_url = self.instanceURL)
 
-        logger = Logger(self.logDir, self.logfile)
+        self.logger = Logger(self.logDir, self.logfile)
         self.__log_in_new_client()
         
 
@@ -79,6 +79,7 @@ class RBU_RSS(Mastodon):
         for feed in self.blogs:
             parser = Parser([feed])
             rssEntries = parser.getNewPosts()
+
 
             for entry in rssEntries:
                 self.__postRSSEntry(entry, self.blogs[feed])

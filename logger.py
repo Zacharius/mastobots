@@ -38,7 +38,6 @@ class Logger:
         logBlogString = formatBlogLog(title, author, link)
         with open(self.logfile, "a") as log:
             log.write(logBlogString)
-            log.write()#newline
                       
 
     def logToot(self, text, author):
