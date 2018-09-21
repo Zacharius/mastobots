@@ -108,7 +108,7 @@ class RBU_RSS(Mastodon):
             lastID = tagged_posts[0].id
             self.__saveLastRecordedHashtagID(hashtag, lastID)
 
-    def __getParentPost(post):
+    def __getParentPost(self, post):
         parentID = post.in_reply_to_id
         parentPost = self.status(parentID)
         return parentPost
