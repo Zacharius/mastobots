@@ -5,7 +5,7 @@ import os
 import re
 import time
 import subprocess
-import datetime
+from datetime import date, timedelta
 from util import getAbsolutePath
 from format import formatBlogLog, formatLinkedTootLog, formatLocalTootLog, extractExternalLinks
 
@@ -14,19 +14,8 @@ def main():
     logfile = "out.txt"
     logger = Logger(logDir, logfile)
 
-    text = ''' <p>Design thinking is inherently conservative <a
-    href="https://refactorcamp.org/tags/heyfeedfox" class="mention hashtag" rel="tag">#<span>heyfeedfox</span></a> <a
-    href="https://hbr.org/2018/09/design-thinking-is-fundamentally-conservative-and-preserves-the-status-quo"
-    rel="nofollow noopener" target="_blank"><span
-    class="invisible">https://</span><span
-    class="ellipsis">hbr.org/2018/09/design-thinkin</span><span
-    class="invisible">g-is-fundamentally-conservative-and-preserves-the-status-quo</span></a></p>
-    vgr '''
-    title = "poetry"
-    link = "zfadd.is"
-    author = "@zacharius"
 
-    logger.logToot(text, author)
+    logger.archive()
 
 class Logger:
 
@@ -58,12 +47,28 @@ class Logger:
             log.write(localTootString)
 
     def archive(self):
-        datepostfix = datetime.date.today().strftime("%y.%W")
+        datepostfix = date.today().strftime("%y.%W")
 
         archiveFile = self.logfile + "." + datepostfix
 
         subprocess.run(['mv', self.logfile, archiveFile])
-                       
+
+        self.__prepNewLogfile()
+
+    def __prepNewLogfile(self):
+        startDate = date.today()
+        startDateString = startDate.strftime('%m/%d/%y')
+        endDate = startDate + timedelta(days=6)
+        endDateString = endDate.strftime('%m/%d/%y')
+
+        with open(self.logfile, 'a') as log:
+            log.write('Refactorings Roundup ' +
+                      startDateString +
+                      ' -- ' +
+                      endDateString + '\n')
+            log.write("* New Posts\n")
+            log.write('* Stuff We Read\n')
+            log.write('* Short Takes\n')
         
 
 
