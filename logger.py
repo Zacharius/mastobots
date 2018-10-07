@@ -2,8 +2,6 @@
 
 
 import os
-import re
-import time
 import subprocess
 from datetime import date, timedelta
 from util import getAbsolutePath
@@ -16,8 +14,12 @@ def main():
 
 
     logger.archive()
+    logger.logBlog('who', 'what', 'why')
 
 class Logger:
+    blogPostsSection = '* New Posts'
+    readSection = '* Stuff We Read'
+    opinionSection = '* Short Takes'
 
     def __init__(self, logDir, logFile):
         self.logfile = str(logDir +  logFile)
@@ -25,8 +27,8 @@ class Logger:
         
     def logBlog(self, title, author, link):
         logBlogString = formatBlogLog(title, author, link)
-        with open(self.logfile, "a") as log:
-            log.write(logBlogString)
+        self.__insertAfterString(self.blogPostsSection, logBlogString)
+    
                       
 
     def logToot(self, text, author):
@@ -38,14 +40,24 @@ class Logger:
 
     def __logLinkedToot(self, text, author):
         linkedTootString = formatLinkedTootLog(text, author)
-        with open(self.logfile, "a") as log:
-            log.write(linkedTootString)
-                      
+        self.__insertAfterString(self.readSection, logBlogString)
+
     def __logLocalToot(self, text, author):
         localTootString = formatLocalTootLog(text, author)
-        with open(self.logfile, 'a') as log:
-            log.write(localTootString)
+        self.__insertAfterString(self.opinionSection, logBlogString)
 
+    # WARNING: this function places all of self.logfile into memory,
+    #          could cause problems if file gets to big, which I don't
+    #          anticipate
+    def __insertAfterString(self, seekString, insertString):
+        with open(self.logfile, 'r') as log:
+           logText = log.read()
+
+        logText = logText.replace(seekString, seekString + '\n' + insertString, 1)
+
+        with open(self.logfile, 'w') as log:
+            log.write(logText)
+            
     def archive(self):
         datepostfix = date.today().strftime("%y.%W")
 
@@ -55,6 +67,8 @@ class Logger:
 
         self.__prepNewLogfile()
 
+       
+    
     def __prepNewLogfile(self):
         startDate = date.today()
         startDateString = startDate.strftime('%m/%d/%y')
@@ -66,9 +80,11 @@ class Logger:
                       startDateString +
                       ' -- ' +
                       endDateString + '\n')
-            log.write("* New Posts\n")
-            log.write('* Stuff We Read\n')
-            log.write('* Short Takes\n')
+            log.write(self.blogPostsSection + '\n')
+            log.write(self.readSection + '\n')
+            log.write(self.opinionSection + '\n')
+
+    
         
 
 
