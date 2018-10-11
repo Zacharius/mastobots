@@ -45,7 +45,8 @@ class RBU_RSS(Mastodon):
              'http://msls.net/feed/' : '@bkam',
              'https://medium.com/feed/@j_camachor/' : '@jcamachor@mastodon.social',
              'https://www.digital-orrery.com/index.xml' : '@neocopinus',
-             'https://goingferalco.wordpress.com/feed/' : '@james'}
+             'https://goingferalco.wordpress.com/feed/' : '@james',
+             'https://zfadd.is/feed' : '@zacharius'}
 
 
     logDir = getAbsolutePath(__file__, 'log/')
