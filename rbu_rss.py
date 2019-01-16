@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/home/mastodon/Mastobots/bot/bin/python3
 
 from mastodon import Mastodon
 import os
@@ -36,7 +36,6 @@ class RBU_RSS(Mastodon):
              'https://josephckelly.com/feed/' : 'Joseph Kelly',
              'https://gravityandlevity.wordpress.com/feed/' : 'Brian Skinner',
              'https://www.nousmachina.net/rss/' : '@hewhocutsdown',
-             'https://www.howell.io/rss.xml' : '@dehowell' ,
              'https://scottwernerd.com/feed/' : '@scottwerner',
              'http://secondforge.com/atom.xml' : '@jamescgibson',
              'https://ariel-greenwood-e07u.squarespace.com/new-blog?format=rss':
