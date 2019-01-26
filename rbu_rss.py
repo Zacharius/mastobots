@@ -45,6 +45,7 @@ class RBU_RSS(Mastodon):
              'https://medium.com/feed/@j_camachor/' : '@jcamachor@mastodon.social',
              'https://www.digital-orrery.com/index.xml' : '@neocopinus',
              'https://goingferalco.wordpress.com/feed/' : '@james',
+	     'http://foolproof.ink/index.php/feed/atom/' : 'Lisa Neigut',
              'https://zfadd.is/feed' : '@zacharius'}
 
 
